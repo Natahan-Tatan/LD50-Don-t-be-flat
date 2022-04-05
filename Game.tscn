@@ -87,6 +87,7 @@ drag_margin_v_enabled = true
 editor_draw_limits = true
 editor_draw_drag_margin = true
 script = ExtResource( 4 )
+NodeToFollow = NodePath("../Player")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="World/Camera"]
 anims/RESET = SubResource( 1 )
@@ -96,9 +97,6 @@ anims/zoom = SubResource( 2 )
 position = Vector2( 1253, -1598 )
 collision_mask = 3
 Jump = 1800
-
-[node name="CameraTransform" type="RemoteTransform2D" parent="World/Player"]
-remote_path = NodePath("../../Camera")
 
 [node name="Level" type="Node2D" parent="."]
 position = Vector2( 1, 0 )

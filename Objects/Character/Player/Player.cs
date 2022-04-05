@@ -154,9 +154,10 @@ namespace Game
         {
             if(_lastTopCollider is Rock rock)
             {
+                Vector2 globaPos = GlobalPosition;
                 GetParent().RemoveChild(this);
                 rock.AddChild(this);
-                //Position = new Vector2(Position.x, Position.y + _(rock.GetNode<CollisionShape2D>("CollisionShape2D").Shape as RectangleShape2D).Extents.y);
+                Position = new Vector2(rock.ToLocal(globaPos).x, (rock.GetNode<CollisionShape2D>("CollisionShape2D").Shape as RectangleShape2D).Extents.y - 5);
             }
             
             SetPhysicsProcess(false);
