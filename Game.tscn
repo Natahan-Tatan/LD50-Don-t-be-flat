@@ -1,0 +1,157 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://Objects/Wall/Wall.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Objects/Character/Player/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Objects/Rock/Rock.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Objects/Camera.cs" type="Script" id=4]
+[ext_resource path="res://Objects/Level.cs" type="Script" id=5]
+[ext_resource path="res://Objects/Block/BlockCeil.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Objects/UI/Version.cs" type="Script" id=7]
+[ext_resource path="res://Ressources/Fonts/UbuntuMono-Regular.ttf" type="DynamicFontData" id=8]
+
+[sub_resource type="Animation" id=1]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:zoom")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, -200 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "zoom"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:zoom")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 0.3, 0.3 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, -200 ), Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="DynamicFont" id=3]
+size = 35
+use_filter = true
+font_data = ExtResource( 8 )
+
+[sub_resource type="Theme" id=4]
+default_font = SubResource( 3 )
+
+[node name="Game" type="Node"]
+__meta__ = {
+"_edit_horizontal_guides_": [  ]
+}
+
+[node name="World" type="Node2D" parent="."]
+
+[node name="Camera" type="Camera2D" parent="World"]
+position = Vector2( 1253, -1598 )
+offset = Vector2( 0, -200 )
+current = true
+process_mode = 0
+drag_margin_v_enabled = true
+editor_draw_limits = true
+editor_draw_drag_margin = true
+script = ExtResource( 4 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="World/Camera"]
+anims/RESET = SubResource( 1 )
+anims/zoom = SubResource( 2 )
+
+[node name="Player" parent="World" instance=ExtResource( 2 )]
+position = Vector2( 1253, -1598 )
+collision_mask = 3
+Jump = 1800
+
+[node name="CameraTransform" type="RemoteTransform2D" parent="World/Player"]
+remote_path = NodePath("../../Camera")
+
+[node name="Level" type="Node2D" parent="."]
+position = Vector2( 1, 0 )
+script = ExtResource( 5 )
+ExitHeight = 1
+Height = 8
+Width = 9
+Rock = ExtResource( 3 )
+
+[node name="Ceil" parent="Level" instance=ExtResource( 1 )]
+position = Vector2( 0, -1792 )
+BlockScene = ExtResource( 6 )
+Width = 24
+Height = 6
+
+[node name="Ground" parent="Level" instance=ExtResource( 1 )]
+position = Vector2( 0, 128 )
+Width = 9
+Height = 6
+
+[node name="LeftWall" parent="Level" instance=ExtResource( 1 )]
+position = Vector2( -896, 128 )
+Width = 7
+Height = 21
+
+[node name="RightWall" parent="Level" instance=ExtResource( 1 )]
+position = Vector2( 1152, 128 )
+Width = 15
+Height = 14
+
+[node name="FallTimer" type="Timer" parent="Level"]
+wait_time = 0.2
+autostart = true
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Technical" type="Control" parent="UI"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = SubResource( 4 )
+
+[node name="Version" type="Label" parent="UI/Technical"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -151.0
+margin_top = -36.0
+text = "0.0.0"
+align = 2
+script = ExtResource( 7 )
+
+[connection signal="Flattened" from="World/Player" to="World/Camera" method="_on_Player_Flattened"]
+[connection signal="timeout" from="Level/FallTimer" to="Level" method="_on_FallTimer_timeout"]
+
+[editable path="Level/Ceil"]
