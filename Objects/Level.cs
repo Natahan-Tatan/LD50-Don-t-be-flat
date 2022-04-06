@@ -97,6 +97,16 @@ namespace Game
         }
         private int _width = 20;
 
+        [Export(PropertyHint.Range,"0.2,5,0.1")]
+        public float FallingDelayMin {get; set;} = 5;
+        [Export(PropertyHint.Range,"0.2,5,0.1")]
+        public float FallingDelayMax {get; set;} = 5;
+
+        [Export(PropertyHint.ExpRange,"1,500,0.9")]
+        public int RockSpeedMin {get; set;} = 100;
+        [Export(PropertyHint.ExpRange,"1,500,0.9")]
+        public int RockSpeedMax {get; set;} = 200;
+
         public override void _Ready()
         {
             base._Ready();
@@ -119,6 +129,7 @@ namespace Game
                 _freeSlots.Shuffle();
 
                 Rock newRock = Rock.Instance<Rock>();
+                newRock.Speed = Mathf.RoundToInt((float)GD.RandRange(RockSpeedMin, RockSpeedMax));
                 newRock.Position = new Vector2(_freeSlots[0] * _blockSize + (_blockSize/2), _ceil.Position.y - + (_blockSize/2));
 
                 AddChild(newRock);
@@ -130,7 +141,10 @@ namespace Game
                     _freeSlots.RemoveAt(0);
                 }
 
-                _timer.Start();
+                float time = (float)GD.RandRange(FallingDelayMin, FallingDelayMax);
+                _timer.Start(time);
+
+                GD.Print("Rocks speed: ",newRock.Speed, " - next falling in ", time);
             }
             
         }

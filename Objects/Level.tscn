@@ -1,0 +1,52 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Objects/Block/Block.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Objects/Level.cs" type="Script" id=2]
+[ext_resource path="res://Objects/Rock/Rock.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Objects/Wall/Wall.cs" type="Script" id=4]
+[ext_resource path="res://Objects/Block/BlockCeil.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Objects/Wall/Wall.tscn" type="PackedScene" id=6]
+
+[node name="Level" type="Node2D"]
+script = ExtResource( 2 )
+__meta__ = {
+"_editor_description_": "Control width and height of the map."
+}
+ExitHeight = 1
+Height = 7
+Width = 7
+Rock = ExtResource( 3 )
+
+[node name="FallTimer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[node name="Ceil" type="Node2D" parent="." instance=ExtResource( 6 )]
+position = Vector2( 0, -1664 )
+script = ExtResource( 4 )
+BlockScene = ExtResource( 5 )
+Width = 22
+Height = 6
+
+[node name="Ground" type="Node2D" parent="." instance=ExtResource( 6 )]
+position = Vector2( 0, 128 )
+script = ExtResource( 4 )
+BlockScene = ExtResource( 1 )
+Width = 7
+Height = 6
+
+[node name="LeftWall" type="Node2D" parent="." instance=ExtResource( 6 )]
+position = Vector2( -896, 128 )
+script = ExtResource( 4 )
+BlockScene = ExtResource( 1 )
+Width = 7
+Height = 20
+
+[node name="RightWall" type="Node2D" parent="." instance=ExtResource( 6 )]
+position = Vector2( 896, 128 )
+script = ExtResource( 4 )
+BlockScene = ExtResource( 1 )
+Width = 15
+Height = 13
+
+[connection signal="timeout" from="FallTimer" to="." method="_on_FallTimer_timeout"]

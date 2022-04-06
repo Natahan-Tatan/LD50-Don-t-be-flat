@@ -1,11 +1,8 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://Objects/Wall/Wall.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Objects/Level.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Objects/Character/Player/Player.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Objects/Rock/Rock.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Objects/Camera.cs" type="Script" id=4]
-[ext_resource path="res://Objects/Level.cs" type="Script" id=5]
-[ext_resource path="res://Objects/Block/BlockCeil.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Objects/UI/Version.cs" type="Script" id=7]
 [ext_resource path="res://Ressources/Fonts/UbuntuMono-Regular.ttf" type="DynamicFontData" id=8]
 
@@ -94,42 +91,14 @@ anims/RESET = SubResource( 1 )
 anims/zoom = SubResource( 2 )
 
 [node name="Player" parent="World" instance=ExtResource( 2 )]
-position = Vector2( 1253, -1598 )
+position = Vector2( 969, -1463 )
 collision_mask = 3
 Jump = 1800
 
-[node name="Level" type="Node2D" parent="."]
-position = Vector2( 1, 0 )
-script = ExtResource( 5 )
-ExitHeight = 1
-Height = 8
-Width = 9
-Rock = ExtResource( 3 )
-
-[node name="Ceil" parent="Level" instance=ExtResource( 1 )]
-position = Vector2( 0, -1792 )
-BlockScene = ExtResource( 6 )
-Width = 24
-Height = 6
-
-[node name="Ground" parent="Level" instance=ExtResource( 1 )]
-position = Vector2( 0, 128 )
-Width = 9
-Height = 6
-
-[node name="LeftWall" parent="Level" instance=ExtResource( 1 )]
-position = Vector2( -896, 128 )
-Width = 7
-Height = 21
-
-[node name="RightWall" parent="Level" instance=ExtResource( 1 )]
-position = Vector2( 1152, 128 )
-Width = 15
-Height = 14
-
-[node name="FallTimer" type="Timer" parent="Level"]
-wait_time = 0.2
-autostart = true
+[node name="Level" parent="." instance=ExtResource( 1 )]
+FallingDelayMin = 3.4
+FallingDelayMax = 10.0
+RockSpeedMin = 50
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -150,6 +119,3 @@ align = 2
 script = ExtResource( 7 )
 
 [connection signal="Flattened" from="World/Player" to="World/Camera" method="_on_Player_Flattened"]
-[connection signal="timeout" from="Level/FallTimer" to="Level" method="_on_FallTimer_timeout"]
-
-[editable path="Level/Ceil"]
