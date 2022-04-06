@@ -94,28 +94,22 @@ namespace Game
 
                     if(vel.x != 0)   
                     {
-                        if(_sprite.Animation != "walk")
-                        {
-                            _sprite.Play("walk");
-                        }
+                        PlayAnim("walk");
                     }
-                    else if(_sprite.Animation != "idle")
+                    else 
                     {
-                        _sprite.Play("idle");
+                        PlayAnim("idle");
                     }
                 }
                 else
                 {
                     if(vel.y > 0)
                     {
-                        if(_sprite.Animation != "fall")
-                        {
-                            _sprite.Play("fall");
-                        }
+                        PlayAnim("fall");
                     }
-                    else if(_sprite.Animation != "jump")
+                    else
                     {
-                        _sprite.Play("jump");
+                        PlayAnim("jump");
                     }
                 }
 
@@ -186,6 +180,21 @@ namespace Game
         public void _on_RestoreTimer_timeout()
         {
             _isRestoring = true;
+        }
+
+        public void PlayAnim(string anim)
+        {
+            if(Scale.y < 1)
+            {
+                if(_sprite.Animation != "flattening")
+                {
+                    _sprite.Animation = "flattening";
+                }
+            }
+            else if(_sprite.Animation != anim)
+            {
+                _sprite.Animation = anim;
+            }
         }
 
     }

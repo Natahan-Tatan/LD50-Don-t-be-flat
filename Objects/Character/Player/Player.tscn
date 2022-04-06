@@ -1,19 +1,18 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Objects/Character/Player/Player.cs" type="Script" id=1]
 [ext_resource path="res://Objects/Character/Player/Character.png" type="Texture" id=2]
-[ext_resource path="res://Objects/Character/Character.png" type="Texture" id=3]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 2 )
 region = Rect2( 64, 0, 64, 64 )
 
-[sub_resource type="AtlasTexture" id=8]
-atlas = ExtResource( 3 )
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 2 )
 region = Rect2( 384, 0, 64, 64 )
 
-[sub_resource type="AtlasTexture" id=9]
-atlas = ExtResource( 3 )
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 2 )
 region = Rect2( 448, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=2]
@@ -32,6 +31,14 @@ region = Rect2( 256, 0, 64, 64 )
 atlas = ExtResource( 2 )
 region = Rect2( 320, 0, 64, 64 )
 
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 2 )
+region = Rect2( 512, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 2 )
+region = Rect2( 576, 0, 64, 64 )
+
 [sub_resource type="SpriteFrames" id=6]
 animations = [ {
 "frames": [ SubResource( 1 ) ],
@@ -39,7 +46,7 @@ animations = [ {
 "name": "idle",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 8 ), SubResource( 9 ) ],
+"frames": [ SubResource( 13 ), SubResource( 14 ) ],
 "loop": true,
 "name": "flat",
 "speed": 1.0
@@ -58,6 +65,11 @@ animations = [ {
 "loop": true,
 "name": "walk",
 "speed": 4.0
+}, {
+"frames": [ SubResource( 11 ), SubResource( 12 ) ],
+"loop": true,
+"name": "flattening",
+"speed": 6.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=7]

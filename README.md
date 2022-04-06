@@ -24,5 +24,5 @@ You must escape the room before be flattened by falling rocks !
 - [ ] Static rocks that fall off when something is on it after certain time
 - [ ] End of level, move to the next level
 - [x] Player restore
-- [ ] Player being flattened anim (avoid buged fall/jump anim)
+- [x] Player being flattened anim (avoid buged fall/jump anim)
 - [ ] Enhance animations !
