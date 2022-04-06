@@ -25,11 +25,14 @@ namespace Game
         private RayCast2D _rayDownLeft = null;
         private RayCast2D _rayDownRight = null;
         private Node2D _lastTopCollider = null;
+        private Timer _restoreTimer = null;
+        private bool _isRestoring = false;
 
         public override void _Ready()
         {
             GD.Randomize();
             _sprite = GetNode<AnimatedSprite>("AnimatedSprite");
+            _restoreTimer = GetNode<Timer>("RestoreTimer");
 
             _shape = (GetNode<CollisionShape2D>("CollisionShape2D").Shape as RectangleShape2D);
 
@@ -135,6 +138,8 @@ namespace Game
                         isColliding = true;
 
                         Scale -= new Vector2(0, 0.1f);
+                        _isRestoring = false;
+                        _restoreTimer.Start();
 
                         break;
                     }
@@ -146,6 +151,17 @@ namespace Game
                     {
                         ray.CastTo = new Vector2(0, -_shape.Extents.y - 2);
                     }
+                }
+            }
+
+            if(_isRestoring)
+            {
+                Scale += new Vector2(0, 0.01f);
+
+                if(Scale.y > 1)
+                {
+                    Scale = new Vector2(1, 1);
+                    _isRestoring = false;
                 }
             }
         }
@@ -165,6 +181,11 @@ namespace Game
             _sprite.Play("flat");
             Scale = new Vector2(1,1);
             _sprite.ZIndex = 10;
+        }
+
+        public void _on_RestoreTimer_timeout()
+        {
+            _isRestoring = true;
         }
 
     }
