@@ -16,3 +16,4 @@ You must escape the room before be flattened by falling rocks !
 - [ ] Random levels (shuffle level stats)
 - [ ] Static rocks that fall off when something is on it after certain time
 - [ ] End of level, move to the next level
+- [x] Player restore
