@@ -28,6 +28,8 @@ namespace Game
         private Timer _restoreTimer = null;
         private bool _isRestoring = false;
 
+        private Node2D _droplet = null;
+
         public override void _Ready()
         {
             GD.Randomize();
@@ -35,6 +37,8 @@ namespace Game
             _restoreTimer = GetNode<Timer>("RestoreTimer");
 
             _shape = (GetNode<CollisionShape2D>("CollisionShape2D").Shape as RectangleShape2D);
+
+            _droplet = GetNode<Node2D>("Droplet");
 
             _raycasts.Add(GetNode<RayCast2D>("RayCastLeft"));
             _raycasts.Add(GetNode<RayCast2D>("RayCastMiddle"));
@@ -132,6 +136,10 @@ namespace Game
                         isColliding = true;
 
                         Scale -= new Vector2(0, 0.1f);
+
+                        _droplet.Visible = true;
+                        _droplet.Scale = new Vector2((1.0f/Scale.x) * 2, (1.0f/Scale.y) * 2);
+
                         _isRestoring = false;
                         _restoreTimer.Start();
 
@@ -151,17 +159,23 @@ namespace Game
             if(_isRestoring)
             {
                 Scale += new Vector2(0, 0.01f);
-
+                _droplet.Scale = new Vector2((1.0f/Scale.x) * 2, (1.0f/Scale.y) * 2);
+                
                 if(Scale.y > 1)
                 {
                     Scale = new Vector2(1, 1);
                     _isRestoring = false;
+
+                    _droplet.Scale = new Vector2(2,2);
+                    _droplet.Visible = false;
                 }
             }
         }
 
         public void _on_Player_Flattened()
         {
+            _droplet.Scale = new Vector2(2,2);
+            _droplet.Visible = false;
             if(_lastTopCollider is Rock rock)
             {
                 Vector2 globaPos = GlobalPosition;
