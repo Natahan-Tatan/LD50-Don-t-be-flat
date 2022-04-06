@@ -26,4 +26,4 @@ You must escape the room before be flattened by falling rocks !
 - [x] Player restore
 - [x] Player being flattened anim (avoid buged fall/jump anim)
 - [ ] Enhance animations !
-- [ ] Background image
+- [x] Background image
