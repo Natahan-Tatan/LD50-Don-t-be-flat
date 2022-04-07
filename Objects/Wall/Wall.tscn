@@ -1,8 +1,18 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Objects/Wall/Wall.cs" type="Script" id=1]
-[ext_resource path="res://Objects/Block/Block.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Objects/Wall/Block.png" type="Texture" id=2]
 
-[node name="Wall" type="Node2D"]
+[sub_resource type="RectangleShape2D" id=1]
+resource_local_to_scene = true
+extents = Vector2( 16, 16 )
+
+[node name="Wall" type="StaticBody2D" groups=["ground", "rock"]]
+scale = Vector2( 4, 4 )
 script = ExtResource( 1 )
-BlockScene = ExtResource( 2 )
+Tile = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2( 16, 16 )
+shape = SubResource( 1 )

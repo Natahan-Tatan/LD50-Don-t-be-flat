@@ -49,9 +49,11 @@ namespace Game
                     GetNode<Wall>("LeftWall").Height = leftBlockHeight;
                     GetNode<Wall>("RightWall").Height = BaseHeight + value;
 
-                    Vector2 ceilPos = GetNode<Wall>("Ceil").Position;
+                    GetNode<Wall>("LeftWall").Position = new Vector2(GetNode<Wall>("LeftWall").Position.x, -GetNode<Wall>("LeftWall").Size.y);
 
-                    GetNode<Wall>("Ceil").Position = new Vector2(0, -Mathf.Round(GetNode<Wall>("LeftWall").Size.y * ((float)(leftBlockHeight - BaseHeight - 1) / (float)leftBlockHeight)));
+                    GetNode<Wall>("Ceil").Position = new Vector2(GetNode<Wall>("Ceil").Position.x, -GetNode<Wall>("LeftWall").Size.y);
+
+                    GetNode<Wall>("RightWall").Position = new Vector2(GetNode<Wall>("RightWall").Position.x, -GetNode<Wall>("RightWall").Size.y);
                 }
 
                 _freeSlots.Clear();

@@ -8,7 +8,7 @@ namespace Game
     public class Wall : Node2D
     {
         [Export]
-        public PackedScene BlockScene {get; set; } = null;
+        public Texture Tile {get; set; } = null;
         
         [Export(PropertyHint.Range, "1,50,1")]
         public int Width {
@@ -19,7 +19,7 @@ namespace Game
             set
             {
                 _width = value;
-                _resize();
+                Resize();
             }
         }
         private int _width = 1;
@@ -33,55 +33,57 @@ namespace Game
             set
             {
                 _height = value;
-                _resize();
+                Resize();
             }
         }
+        private int _height = 1;
 
         public Vector2 Size {
             get{
-
-                Block block = GetChildOrNull<Block>(0);
-
-                if(block == null)
+                
+                if(Tile == null)
                 {
                     return Vector2.Zero;
                 }
 
-                return new Vector2(Width* block.Size.x, Height * block.Size.y);
+                return new Vector2(
+                    Width * Tile.GetSize().x * Scale.x, 
+                    Height *Tile.GetSize().y * Scale.y
+                    );
             }
         }
-        
-        private int _height = 1;
+
+        private CollisionShape2D _shape = null;
 
         public override void _Ready()
         {
             base._Ready();
-            _resize();
+
+            _shape = GetNode<CollisionShape2D>("CollisionShape2D");
+
+            _shape.Shape = _shape.Shape.Duplicate() as RectangleShape2D;
+
+            Resize();
         }
-        
-        private void _resize()
+
+        public void Resize()
         {
-            if(BlockScene != null && GetChildCount() != _width * _height)
+            Update();
+
+            if(_shape != null)
+                _shape.Position = (_shape.Shape as RectangleShape2D).Extents = new Vector2(Size.x / Scale.x, Size.y / Scale.y) / 2;
+        }
+
+        public override void _Draw()
+        {
+            base._Draw();
+
+            for(int i=0; i<Width; i++)
             {
-                //TODO: improve algo
-                foreach(Node child in GetChildren())
+                for(int j=0; j<Height; j++)
                 {
-                    RemoveChild(child);
-                    child.QueueFree();
+                    DrawTexture(Tile, new Vector2(i*Tile.GetSize().x, j*Tile.GetSize().y));
                 }
-
-                for(int i=0; i<_width; i++)
-                {
-                    for(int j=0; j<_height; j++)
-                    {
-                        Block block = BlockScene.Instance<Block>();
-
-                        block.Position = new Vector2(i * block.Size.x, -j * block.Size.y);
-
-                        AddChild(block);
-                    }
-                }
-
             }
         }
 
