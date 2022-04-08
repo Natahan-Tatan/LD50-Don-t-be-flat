@@ -124,7 +124,7 @@ flip_v = true
 [node name="World" type="Node2D" parent="."]
 
 [node name="Camera" type="Camera2D" parent="World"]
-position = Vector2( 1253, -1598 )
+position = Vector2( 723, -1649 )
 offset = Vector2( 0, -200 )
 current = true
 process_mode = 0

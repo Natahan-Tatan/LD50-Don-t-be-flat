@@ -1,0 +1,218 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://Objects/Wall/Block.png" type="Texture" id=1]
+[ext_resource path="res://Ressources/Fonts/UbuntuMono-Regular.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://Objects/UI/MenuTheme.tres" type="Theme" id=3]
+[ext_resource path="res://Objects/UI/Menus/MainMenu/MainMenu.cs" type="Script" id=4]
+[ext_resource path="res://Game.tscn" type="PackedScene" id=5]
+
+[sub_resource type="DynamicFont" id=1]
+size = 80
+font_data = ExtResource( 2 )
+
+[sub_resource type="Animation" id=2]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 52, 265 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "fall"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 41, -209 ), Vector2( 72, 260 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1, 1.3, 1.6, 1.8, 2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 1, 0.4 ), Vector2( 1, 1.3 ), Vector2( 1, 0.9 ), Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "loop"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1, 0.8 ), Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="DynamicFont" id=5]
+size = 35
+font_data = ExtResource( 2 )
+
+[node name="MainMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 3 )
+script = ExtResource( 4 )
+Game = ExtResource( 5 )
+
+[node name="MainMenu" type="TextureRect" parent="."]
+modulate = Color( 0.521569, 0.521569, 0.521569, 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 1 )
+stretch_mode = 2
+
+[node name="Title" type="RichTextLabel" parent="."]
+anchor_left = 0.154005
+anchor_top = 0.296441
+anchor_right = 1.00004
+anchor_bottom = 0.36829
+margin_left = -40.403
+margin_top = -38.5556
+margin_right = -62.0243
+margin_bottom = 51.8739
+rect_rotation = -10.4
+rect_pivot_offset = Vector2( 224.023, 163.701 )
+custom_fonts/normal_font = SubResource( 1 )
+bbcode_enabled = true
+bbcode_text = "[center]Don't be flat ![/center]"
+text = "Don't be flat !"
+fit_content_height = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Title"]
+autoplay = "fall"
+playback_speed = 1.2
+anims/RESET = SubResource( 2 )
+anims/fall = SubResource( 3 )
+anims/loop = SubResource( 4 )
+next/fall = "loop"
+next/loop = "loop"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_left = 162.0
+margin_top = 575.0
+margin_right = 451.0
+margin_bottom = 891.0
+custom_constants/separation = 20
+
+[node name="PlayButton" type="Button" parent="VBoxContainer"]
+margin_left = 94.0
+margin_right = 194.0
+margin_bottom = 51.0
+size_flags_horizontal = 4
+text = "Play"
+
+[node name="BoardButton" type="Button" parent="VBoxContainer"]
+margin_left = 82.0
+margin_top = 71.0
+margin_right = 207.0
+margin_bottom = 122.0
+size_flags_horizontal = 4
+text = "Board"
+
+[node name="AboutButton" type="Button" parent="VBoxContainer"]
+margin_left = 82.0
+margin_top = 142.0
+margin_right = 207.0
+margin_bottom = 193.0
+size_flags_horizontal = 4
+text = "About"
+
+[node name="AboutWindow" type="PopupDialog" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="AboutWindow"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 40.0
+margin_top = 68.0
+margin_right = -38.0
+margin_bottom = -71.0
+custom_fonts/normal_font = SubResource( 5 )
+bbcode_enabled = true
+bbcode_text = "[center]Ludum Dare 50 Extra Entry !
+By Natahan
+
+[color=#AAAAFF][url=https://github.com/Natahan-Tatan/LD50-Don-t-be-flat]Project on Github[/url][/color]
+
+Powered by Godot Engine
+[img=300]res://Ressources/Godot_icon.png[/img]
+
+[u]Tools used:[/u]
+Aseprite
+Rfxgen
+Musescore
+Gitkraken
+[/center]"
+text = "Ludum Dare 50 Extra Entry !
+By Natahan
+
+Project on Github
+
+Powered by Godot Engine
+
+
+Tools used:
+Aseprite
+Rfxgen
+Musescore
+Gitkraken
+"
+
+[node name="CloseButton" type="Button" parent="AboutWindow"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -77.0
+margin_top = 364.0
+margin_right = 73.0
+margin_bottom = 415.0
+size_flags_horizontal = 4
+text = "Return"
+
+[connection signal="pressed" from="VBoxContainer/PlayButton" to="." method="_on_PlayButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/AboutButton" to="." method="_on_AboutButton_pressed"]
+[connection signal="meta_clicked" from="AboutWindow/RichTextLabel" to="." method="_on_RichTextLabel_meta_clicked"]
+[connection signal="pressed" from="AboutWindow/CloseButton" to="." method="_on_CloseButton_pressed"]
