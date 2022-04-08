@@ -1,9 +1,65 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=9 format=2]
 
+[ext_resource path="res://Objects/Camera.cs" type="Script" id=1]
 [ext_resource path="res://Objects/Level.cs" type="Script" id=2]
 [ext_resource path="res://Objects/Rock/Rock.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Objects/Character/Player/Player.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Objects/Wall/Wall.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Objects/Portal/Portal.tscn" type="PackedScene" id=7]
+
+[sub_resource type="Animation" id=1]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:zoom")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, -200 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "zoom"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:zoom")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 0.3, 0.3 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, -200 ), Vector2( 0, 0 ) ]
+}
 
 [node name="Level" type="Node2D"]
 script = ExtResource( 2 )
@@ -32,7 +88,7 @@ Width = 5
 Height = 6
 
 [node name="RightWall" parent="." instance=ExtResource( 6 )]
-position = Vector2( 640, -1793 )
+position = Vector2( 640, -1792 )
 Width = 10
 Height = 14
 
@@ -45,4 +101,32 @@ position = Vector2( -640, -2688 )
 Width = 5
 Height = 21
 
+[node name="Camera" type="Camera2D" parent="."]
+position = Vector2( 71, -625 )
+offset = Vector2( 0, -200 )
+current = true
+process_mode = 0
+drag_margin_v_enabled = true
+editor_draw_limits = true
+editor_draw_drag_margin = true
+script = ExtResource( 1 )
+NodeToFollow = NodePath("../Player")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Camera"]
+anims/RESET = SubResource( 1 )
+anims/zoom = SubResource( 2 )
+
+[node name="Player" parent="." instance=ExtResource( 4 )]
+position = Vector2( 66, -833 )
+collision_mask = 3
+Gravity = 70
+Speed = 350
+Jump = 1700
+
+[node name="RestoreTimer" parent="Player" index="1"]
+wait_time = 10.928
+
 [connection signal="timeout" from="FallTimer" to="." method="_on_FallTimer_timeout"]
+[connection signal="Flattened" from="Player" to="Camera" method="_on_Player_Flattened"]
+
+[editable path="Player"]

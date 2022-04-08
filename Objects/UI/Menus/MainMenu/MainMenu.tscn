@@ -100,14 +100,14 @@ texture = ExtResource( 1 )
 stretch_mode = 2
 
 [node name="Title" type="RichTextLabel" parent="."]
-anchor_left = 0.154005
-anchor_top = 0.296441
-anchor_right = 1.00004
-anchor_bottom = 0.36829
-margin_left = -40.403
-margin_top = -38.5556
-margin_right = -62.0243
-margin_bottom = 51.8739
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -248.0
+margin_top = -247.0
+margin_right = 220.0
+margin_bottom = -75.0
 rect_rotation = -10.4
 rect_pivot_offset = Vector2( 224.023, 163.701 )
 custom_fonts/normal_font = SubResource( 1 )
@@ -115,9 +115,6 @@ bbcode_enabled = true
 bbcode_text = "[center]Don't be flat ![/center]"
 text = "Don't be flat !"
 fit_content_height = true
-__meta__ = {
-"_edit_use_anchors_": true
-}
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Title"]
 autoplay = "fall"

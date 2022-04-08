@@ -9,6 +9,18 @@ namespace Game
         [Signal]
         public delegate void Flattened();
 
+        [Export]
+        public bool HasControl {
+            get{
+                return _hasControl;
+            }
+            set{
+                SetPhysicsProcess(value);
+                _hasControl = value;
+            }
+        }
+        private bool _hasControl = true;
+
         [Export(PropertyHint.Range,"0,1000,1")]
         public int Gravity {get; set;} = 100;
         [Export(PropertyHint.Range,"0,1000,1")]

@@ -1,8 +1,122 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Objects/Character/Player/Player.cs" type="Script" id=1]
 [ext_resource path="res://Objects/Character/Player/Character.png" type="Texture" id=2]
 [ext_resource path="res://Objects/Character/Player/droplet.png" type="Texture" id=3]
+
+[sub_resource type="Animation" id=17]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AnimatedSprite:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 2, 2 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SpawnAnim/Particles2D:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:HasControl")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=18]
+resource_name = "spawn"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 1000.0, 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AnimatedSprite:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 0.7, 1.1, 1.3, 1.7, 1.9, 2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.2, 0.2 ), Vector2( 0.5, 0.5 ), Vector2( 0.3, 0.3 ), Vector2( 1, 1 ), Vector2( 0.8, 0.8 ), Vector2( 2.2, 2.2 ), Vector2( 1.8, 1.8 ), Vector2( 2, 2 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SpawnAnim/Particles2D:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:HasControl")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+
+[sub_resource type="OpenSimplexNoise" id=4]
+
+[sub_resource type="NoiseTexture" id=19]
+width = 5
+height = 5
+noise = SubResource( 4 )
+
+[sub_resource type="Gradient" id=20]
+offsets = PoolRealArray( 0, 0.439331, 0.853557, 0.916318, 1 )
+colors = PoolColorArray( 0.802302, 0.470352, 0.878906, 0, 0.794652, 0.454545, 0.875936, 0.873797, 0.623529, 0, 0.772549, 0.596078, 0.76926, 0.387097, 0.860595, 0.752435, 0.92549, 0.8, 0.952941, 0 )
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 2 )
@@ -16,13 +130,9 @@ region = Rect2( 384, 0, 64, 64 )
 atlas = ExtResource( 2 )
 region = Rect2( 448, 0, 64, 64 )
 
-[sub_resource type="AtlasTexture" id=4]
+[sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 2 )
-region = Rect2( 256, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=5]
-atlas = ExtResource( 2 )
-region = Rect2( 320, 0, 64, 64 )
+region = Rect2( 192, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=11]
 atlas = ExtResource( 2 )
@@ -32,9 +142,13 @@ region = Rect2( 512, 0, 64, 64 )
 atlas = ExtResource( 2 )
 region = Rect2( 576, 0, 64, 64 )
 
-[sub_resource type="AtlasTexture" id=2]
+[sub_resource type="AtlasTexture" id=21]
 atlas = ExtResource( 2 )
-region = Rect2( 192, 0, 64, 64 )
+region = Rect2( 256, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 2 )
+region = Rect2( 320, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 2 )
@@ -52,20 +166,20 @@ animations = [ {
 "name": "flat",
 "speed": 1.0
 }, {
-"frames": [ SubResource( 4 ), SubResource( 5 ) ],
+"frames": [ SubResource( 2 ) ],
 "loop": true,
-"name": "walk",
-"speed": 4.0
+"name": "fall",
+"speed": 5.0
 }, {
 "frames": [ SubResource( 11 ), SubResource( 12 ) ],
 "loop": true,
 "name": "flattening",
 "speed": 6.0
 }, {
-"frames": [ SubResource( 2 ) ],
+"frames": [ SubResource( 21 ), SubResource( 5 ) ],
 "loop": true,
-"name": "fall",
-"speed": 5.0
+"name": "walk",
+"speed": 4.0
 }, {
 "frames": [ SubResource( 3 ) ],
 "loop": true,
@@ -116,6 +230,41 @@ __meta__ = {
 Gravity = 80
 Speed = 400
 Jump = 1500
+
+[node name="SpawnAnim" type="Node2D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SpawnAnim"]
+root_node = NodePath("../..")
+autoplay = "spawn"
+anims/RESET = SubResource( 17 )
+anims/spawn = SubResource( 18 )
+next/spawn = "RESET"
+
+[node name="Particles2D" type="CPUParticles2D" parent="SpawnAnim"]
+position = Vector2( -3, -2 )
+z_index = 10
+emitting = false
+amount = 50
+local_coords = false
+texture = SubResource( 19 )
+emission_shape = 1
+emission_sphere_radius = 13.05
+direction = Vector2( 0, 0 )
+spread = 95.87
+gravity = Vector2( 0, 0 )
+linear_accel = 100.0
+linear_accel_random = 0.28
+radial_accel = 10.0
+radial_accel_random = 0.28
+tangential_accel = 11.59
+tangential_accel_random = 0.46
+angle = 45.0
+angle_random = 1.0
+scale_amount = 2.0
+color = Color( 1, 0, 0.92549, 1 )
+color_ramp = SubResource( 20 )
+hue_variation = 0.03
+hue_variation_random = 0.83
 
 [node name="RestoreTimer" type="Timer" parent="."]
 wait_time = 3.0

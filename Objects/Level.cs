@@ -132,7 +132,7 @@ namespace Game
 
                 Rock newRock = Rock.Instance<Rock>();
                 newRock.Speed = Mathf.RoundToInt((float)GD.RandRange(RockSpeedMin, RockSpeedMax));
-                newRock.Position = new Vector2(_freeSlots[0] * _blockSize + (_blockSize/2), _ceil.Position.y - + (_blockSize/2));
+                newRock.Position = new Vector2(_freeSlots[0] * _blockSize + (_blockSize/2), _ceil.Position.y + (_blockSize * (_ceil.Height - 1)));
 
                 AddChild(newRock);
 

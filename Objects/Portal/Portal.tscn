@@ -60,12 +60,12 @@ tracks/1/keys = {
 "values": [ Vector2( 4, 4 ), Vector2( 3.4, 3 ), Vector2( 3, 4 ), Vector2( 3.8, 3 ), Vector2( 4, 4 ) ]
 }
 
-[sub_resource type="OpenSimplexNoise" id=4]
+[sub_resource type="OpenSimplexNoise" id=7]
 
 [sub_resource type="NoiseTexture" id=5]
 width = 5
 height = 5
-noise = SubResource( 4 )
+noise = SubResource( 7 )
 
 [sub_resource type="Gradient" id=6]
 offsets = PoolRealArray( 0, 0.439331, 0.853557, 0.916318, 1 )
