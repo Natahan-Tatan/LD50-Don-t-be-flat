@@ -123,9 +123,6 @@ Gravity = 70
 Speed = 350
 Jump = 1700
 
-[node name="RestoreTimer" parent="Player" index="1"]
-wait_time = 10.928
-
 [connection signal="timeout" from="FallTimer" to="." method="_on_FallTimer_timeout"]
 [connection signal="Flattened" from="Player" to="Camera" method="_on_Player_Flattened"]
 
