@@ -16,7 +16,8 @@ You must escape the room before be flattened by falling rocks !
 - Gitkraken
 
 ## TODO (can evolute)
-- [ ] Main menu
+- [x] Main menu
+- [ ] Score system + score board
 - [ ] Game over screen
 - [ ] Pause menu
 - [ ] Preplaced rocks on level
