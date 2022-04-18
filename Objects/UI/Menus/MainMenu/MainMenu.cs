@@ -5,11 +5,11 @@ namespace UI
 {
     public class MainMenu : Control
     {
-        [Export]
-        public PackedScene Game {get; set;}
+        [Export(PropertyHint.File,"*.tscn")]
+        public String Game {get; set;}
         public void _on_PlayButton_pressed()
         {
-            GetTree().ChangeSceneTo(Game);
+            GetTree().ChangeScene(Game);
         }
 
         public void _on_AboutButton_pressed()

@@ -6,6 +6,10 @@ namespace Game
     [Tool]
     public class Level : Node2D
     {
+        [Signal]
+        public delegate void Finished();
+        [Signal]
+        public delegate void GameOver();
         public int BaseHeight = 6;
 
         private bool _ready = false;
@@ -128,19 +132,23 @@ namespace Game
         {
             if(_freeSlots.Count > 0 && Rock != null)
             {
-                _freeSlots.Shuffle();
+                //_freeSlots.Shuffle();//Crash en HTML5
+                //Alternative pour empêcher le crash
+                int index = _rand.Next(_freeSlots.Count);
 
                 Rock newRock = Rock.Instance<Rock>();
                 newRock.Speed = Mathf.RoundToInt((float)GD.RandRange(RockSpeedMin, RockSpeedMax));
-                newRock.Position = new Vector2(_freeSlots[0] * _blockSize + (_blockSize/2), _ceil.Position.y + (_blockSize * (_ceil.Height - 1)));
+                newRock.Position = new Vector2(_freeSlots[index] * _blockSize + (_blockSize/2), _ceil.Position.y + (_blockSize * (_ceil.Height - 1)));
 
                 AddChild(newRock);
 
-                _slots[_freeSlots[0]]--;
+                GD.Print("Add !");
 
-                if(_slots[_freeSlots[0]] <= 0)
+                _slots[_freeSlots[index]]--;
+
+                if(_slots[_freeSlots[index]] <= 0)
                 {
-                    _freeSlots.RemoveAt(0);
+                    _freeSlots.RemoveAt(index);
                 }
 
                 float time = (float)GD.RandRange(FallingDelayMin, FallingDelayMax);
@@ -148,7 +156,17 @@ namespace Game
 
                 GD.Print("Rocks speed: ",newRock.Speed, " - next falling in ", time);
             }
-            
+        }
+
+        public void _on_Player_PortalReached()
+        {
+            EmitSignal(nameof(Finished));
+        }
+
+        public void _on_Player_Flattened()
+        {
+            GD.Print("Emit game over");
+            EmitSignal(nameof(GameOver));
         }
     }
 }

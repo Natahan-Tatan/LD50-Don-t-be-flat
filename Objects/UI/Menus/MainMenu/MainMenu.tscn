@@ -1,10 +1,9 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Objects/Wall/Block.png" type="Texture" id=1]
 [ext_resource path="res://Ressources/Fonts/UbuntuMono-Regular.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://Objects/UI/MenuTheme.tres" type="Theme" id=3]
 [ext_resource path="res://Objects/UI/Menus/MainMenu/MainMenu.cs" type="Script" id=4]
-[ext_resource path="res://Game.tscn" type="PackedScene" id=5]
 
 [sub_resource type="DynamicFont" id=1]
 size = 80
@@ -22,7 +21,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 52, 265 ) ]
+"values": [ Vector2( 95, -270 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath(".:rect_scale")
@@ -50,7 +49,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 41, -209 ), Vector2( 72, 260 ) ]
+"values": [ Vector2( 83, -269 ), Vector2( 72, 260 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath(".:rect_scale")
@@ -90,7 +89,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 3 )
 script = ExtResource( 4 )
-Game = ExtResource( 5 )
+Game = "res://Game.tscn"
 
 [node name="MainMenu" type="TextureRect" parent="."]
 modulate = Color( 0.521569, 0.521569, 0.521569, 1 )
@@ -101,13 +100,11 @@ stretch_mode = 2
 
 [node name="Title" type="RichTextLabel" parent="."]
 anchor_left = 0.5
-anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -248.0
-margin_top = -247.0
-margin_right = 220.0
-margin_bottom = -75.0
+margin_left = 95.0
+margin_top = -270.0
+margin_right = 535.0
+margin_bottom = -106.0
 rect_rotation = -10.4
 rect_pivot_offset = Vector2( 224.023, 163.701 )
 custom_fonts/normal_font = SubResource( 1 )

@@ -8,6 +8,8 @@ namespace Game
     {
         [Signal]
         public delegate void Flattened();
+        [Signal]
+        public delegate void PortalReached();
 
         [Export]
         public bool HasControl {
@@ -220,6 +222,26 @@ namespace Game
             else if(_sprite.Animation != anim)
             {
                 _sprite.Animation = anim;
+            }
+        }
+
+        public void _on_Portal_body_entered(Node body)
+        {
+            if(body == this)
+            {
+                AnimationPlayer anim = GetNode<AnimationPlayer>("SpawnAnim/AnimationPlayer");
+
+                anim.Connect("animation_finished",this,nameof(_on_despawn_animation_finished),null, (uint)ConnectFlags.Oneshot);
+
+                anim.Play("despawn");
+            }
+        }
+
+        public void _on_despawn_animation_finished(String anim)
+        {
+            if(anim == "despawn")
+            {
+                EmitSignal(nameof(PortalReached));
             }
         }
 

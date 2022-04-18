@@ -66,7 +66,7 @@ script = ExtResource( 2 )
 __meta__ = {
 "_editor_description_": "Control width and height of the map."
 }
-ExitHeight = 1
+ExitHeight = 3
 Height = 8
 Width = 5
 Rock = ExtResource( 3 )
@@ -76,10 +76,10 @@ wait_time = 2.0
 autostart = true
 
 [node name="Ceil" parent="." instance=ExtResource( 6 )]
-position = Vector2( 0, -2688 )
+position = Vector2( 0, -2944 )
 collision_layer = 2
 collision_mask = 0
-Width = 15
+Width = 18
 Height = 6
 
 [node name="Ground" parent="." instance=ExtResource( 6 )]
@@ -89,17 +89,23 @@ Height = 6
 
 [node name="RightWall" parent="." instance=ExtResource( 6 )]
 position = Vector2( 640, -1792 )
-Width = 10
+Width = 13
 Height = 14
 
 [node name="Portal" parent="RightWall" instance=ExtResource( 7 )]
-position = Vector2( 208.5, -15.5 )
+position = Vector2( 208.5, -16.25 )
 scale = Vector2( 0.25, 0.25 )
 
-[node name="LeftWall" parent="." instance=ExtResource( 6 )]
-position = Vector2( -640, -2688 )
+[node name="Wall" parent="RightWall" instance=ExtResource( 6 )]
+position = Vector2( 256.25, -320 )
+scale = Vector2( 1, 1 )
 Width = 5
-Height = 21
+Height = 10
+
+[node name="LeftWall" parent="." instance=ExtResource( 6 )]
+position = Vector2( -640, -2944 )
+Width = 5
+Height = 23
 
 [node name="Camera" type="Camera2D" parent="."]
 position = Vector2( 71, -625 )
@@ -117,13 +123,16 @@ anims/RESET = SubResource( 1 )
 anims/zoom = SubResource( 2 )
 
 [node name="Player" parent="." instance=ExtResource( 4 )]
-position = Vector2( 66, -833 )
+position = Vector2( 707, -1856 )
 collision_mask = 3
 Gravity = 70
 Speed = 350
 Jump = 1700
 
 [connection signal="timeout" from="FallTimer" to="." method="_on_FallTimer_timeout"]
+[connection signal="body_entered" from="RightWall/Portal" to="Player" method="_on_Portal_body_entered"]
+[connection signal="Flattened" from="Player" to="." method="_on_Player_Flattened"]
 [connection signal="Flattened" from="Player" to="Camera" method="_on_Player_Flattened"]
+[connection signal="PortalReached" from="Player" to="." method="_on_Player_PortalReached"]
 
 [editable path="Player"]
