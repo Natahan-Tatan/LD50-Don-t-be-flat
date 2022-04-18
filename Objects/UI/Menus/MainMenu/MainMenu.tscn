@@ -110,7 +110,7 @@ rect_pivot_offset = Vector2( 224.023, 163.701 )
 custom_fonts/normal_font = SubResource( 1 )
 bbcode_enabled = true
 bbcode_text = "[center]Don't be flat ![/center]"
-text = "Don't be flat !"
+text = "[center]Don't be flat ![/center]"
 fit_content_height = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Title"]
@@ -179,20 +179,20 @@ Rfxgen
 Musescore
 Gitkraken
 [/center]"
-text = "Ludum Dare 50 Extra Entry !
+text = "[center]Ludum Dare 50 Extra Entry !
 By Natahan
 
-Project on Github
+[color=#AAAAFF][url=https://github.com/Natahan-Tatan/LD50-Don-t-be-flat]Project on Github[/url][/color]
 
 Powered by Godot Engine
+[img=300]res://Ressources/Godot_icon.png[/img]
 
-
-Tools used:
+[u]Tools used:[/u]
 Aseprite
 Rfxgen
 Musescore
 Gitkraken
-"
+[/center]"
 
 [node name="CloseButton" type="Button" parent="AboutWindow"]
 anchor_left = 0.5

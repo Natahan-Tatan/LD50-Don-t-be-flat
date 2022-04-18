@@ -113,6 +113,11 @@ namespace Game
         [Export(PropertyHint.ExpRange,"1,500,0.9")]
         public int RockSpeedMax {get; set;} = 200;
 
+        [Export(PropertyHint.Range,"1,30,0.9")]
+        public int MinCountRock {get; set;} = 1;
+        [Export(PropertyHint.Range,"1,50,0.9")]
+        public int MaxCountInRock {get; set;} = 3;
+
         public override void _Ready()
         {
             base._Ready();

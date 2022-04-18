@@ -18,12 +18,12 @@ You must escape the room before be flattened by falling rocks !
 ## TODO (can evolute)
 - [x] Main menu
 - [ ] Score system + score board
-- [ ] Game over screen
-- [ ] Pause menu
+- [x] Game over screen
+- [x] Pause menu / system
 - [ ] Preplaced rocks on level
-- [ ] Random levels (shuffle level stats)
+- [ ] Random levels (shuffle level stats depends to difficulty)
 - [ ] Static rocks that fall off when something is on it after certain time
-- [ ] End of level, move to the next level
+- [x] End of level, move to the next level
 - [x] Player restore
 - [x] Player being flattened anim (avoid buged fall/jump anim)
 - [ ] Enhance animations !
