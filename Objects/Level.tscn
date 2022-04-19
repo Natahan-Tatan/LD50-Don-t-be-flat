@@ -124,7 +124,7 @@ anims/RESET = SubResource( 1 )
 anims/zoom = SubResource( 2 )
 
 [node name="Player" parent="." instance=ExtResource( 4 )]
-position = Vector2( 707, -1856 )
+position = Vector2( 279, -845 )
 collision_mask = 3
 Gravity = 70
 Speed = 350

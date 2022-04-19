@@ -182,9 +182,13 @@ region = Rect2( 384, 0, 64, 64 )
 atlas = ExtResource( 2 )
 region = Rect2( 448, 0, 64, 64 )
 
-[sub_resource type="AtlasTexture" id=2]
+[sub_resource type="AtlasTexture" id=21]
 atlas = ExtResource( 2 )
-region = Rect2( 192, 0, 64, 64 )
+region = Rect2( 256, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 2 )
+region = Rect2( 320, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=11]
 atlas = ExtResource( 2 )
@@ -194,17 +198,13 @@ region = Rect2( 512, 0, 64, 64 )
 atlas = ExtResource( 2 )
 region = Rect2( 576, 0, 64, 64 )
 
-[sub_resource type="AtlasTexture" id=21]
-atlas = ExtResource( 2 )
-region = Rect2( 256, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=5]
-atlas = ExtResource( 2 )
-region = Rect2( 320, 0, 64, 64 )
-
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 2 )
 region = Rect2( 128, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 2 )
+region = Rect2( 192, 0, 64, 64 )
 
 [sub_resource type="SpriteFrames" id=6]
 animations = [ {
@@ -218,24 +218,24 @@ animations = [ {
 "name": "flat",
 "speed": 1.0
 }, {
-"frames": [ SubResource( 2 ) ],
+"frames": [ SubResource( 21 ), SubResource( 5 ) ],
 "loop": true,
-"name": "fall",
-"speed": 5.0
+"name": "walk",
+"speed": 4.0
 }, {
 "frames": [ SubResource( 11 ), SubResource( 12 ) ],
 "loop": true,
 "name": "flattening",
 "speed": 6.0
 }, {
-"frames": [ SubResource( 21 ), SubResource( 5 ) ],
-"loop": true,
-"name": "walk",
-"speed": 4.0
-}, {
 "frames": [ SubResource( 3 ) ],
 "loop": true,
 "name": "jump",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 2 ) ],
+"loop": true,
+"name": "fall",
 "speed": 5.0
 } ]
 
@@ -291,7 +291,6 @@ autoplay = "spawn"
 anims/RESET = SubResource( 17 )
 anims/despawn = SubResource( 22 )
 anims/spawn = SubResource( 18 )
-next/despawn = "RESET"
 next/spawn = "RESET"
 
 [node name="Particles2D" type="CPUParticles2D" parent="SpawnAnim"]

@@ -101,16 +101,16 @@ stretch_mode = 2
 [node name="Title" type="RichTextLabel" parent="."]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = 95.0
+margin_left = -205.0
 margin_top = -270.0
-margin_right = 535.0
+margin_right = 235.0
 margin_bottom = -106.0
 rect_rotation = -10.4
 rect_pivot_offset = Vector2( 224.023, 163.701 )
 custom_fonts/normal_font = SubResource( 1 )
 bbcode_enabled = true
 bbcode_text = "[center]Don't be flat ![/center]"
-text = "[center]Don't be flat ![/center]"
+text = "Don't be flat !"
 fit_content_height = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Title"]
@@ -137,6 +137,7 @@ size_flags_horizontal = 4
 text = "Play"
 
 [node name="BoardButton" type="Button" parent="VBoxContainer"]
+visible = false
 margin_left = 82.0
 margin_top = 71.0
 margin_right = 207.0
@@ -146,9 +147,9 @@ text = "Board"
 
 [node name="AboutButton" type="Button" parent="VBoxContainer"]
 margin_left = 82.0
-margin_top = 142.0
+margin_top = 71.0
 margin_right = 207.0
-margin_bottom = 193.0
+margin_bottom = 122.0
 size_flags_horizontal = 4
 text = "About"
 
@@ -179,20 +180,20 @@ Rfxgen
 Musescore
 Gitkraken
 [/center]"
-text = "[center]Ludum Dare 50 Extra Entry !
+text = "Ludum Dare 50 Extra Entry !
 By Natahan
 
-[color=#AAAAFF][url=https://github.com/Natahan-Tatan/LD50-Don-t-be-flat]Project on Github[/url][/color]
+Project on Github
 
 Powered by Godot Engine
-[img=300]res://Ressources/Godot_icon.png[/img]
 
-[u]Tools used:[/u]
+
+Tools used:
 Aseprite
 Rfxgen
 Musescore
 Gitkraken
-[/center]"
+"
 
 [node name="CloseButton" type="Button" parent="AboutWindow"]
 anchor_left = 0.5

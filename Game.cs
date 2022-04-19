@@ -14,6 +14,29 @@ namespace Game
 
         private Level _currentLevel = null;
 
+        private int _currentLevelNumber = 1;
+
+        //Time
+        public ulong CurrentGameTime{
+            get{
+                if(IsGameOver)
+                {
+                    return _gameDuration;
+                }
+                else
+                {
+                    return OS.GetTicksMsec() - _timeStart - _durationPause;
+                }
+            }
+        }
+
+        public bool IsGameOver {get; set;} = false;
+        private ulong _timeStart = 0;
+        private ulong _timePause = 0;
+        private ulong _durationPause = 0;
+
+        private ulong _gameDuration = 0;
+
 
         public override void _Ready()
         {
@@ -25,14 +48,15 @@ namespace Game
 
             //...but remove it to make a new
            GenerateLevel();
-            
+
+           _timeStart = OS.GetTicksMsec();
         }
 
         public override void _Input(InputEvent @event)
         {
             base._Input(@event);
 
-            if(Input.IsActionJustPressed("Pause"))
+            if(Input.IsActionJustPressed("Pause") && !IsGameOver)
             {
                 ChangePause();
             }
@@ -50,6 +74,15 @@ namespace Game
             GetNode<Control>("UI/PauseMenu").Visible = !currentInPause;
 
             GetTree().Paused = !currentInPause;
+
+            if(GetTree().Paused)
+            {
+                _timePause = OS.GetTicksMsec();
+            }
+            else
+            {
+                _durationPause += OS.GetTicksMsec() - _timePause;
+            }
         }
 
         protected void GenerateLevel()
@@ -82,8 +115,11 @@ namespace Game
                 
                 //TODO: use difficuty to configure level
 
-                _currentLevel.Width = (int)Math.Round(GD.RandRange(5, 20));
-                _currentLevel.Height =(int)Math.Round(GD.RandRange(5, 30));
+                // _currentLevel.Width = (int)Math.Round(GD.RandRange(5, 20));
+                // _currentLevel.Height =(int)Math.Round(GD.RandRange(5, 30));
+
+                _currentLevel.Width = (int)Math.Round(GD.RandRange(4,4));//TEST
+                _currentLevel.Height =(int)Math.Round(GD.RandRange(2,2));//TEST
 
                 _currentLevel.ExitHeight = (int)GD.RandRange(1,3);
 
@@ -102,11 +138,15 @@ namespace Game
 
         public void _on_Level_Finished()
         {
-            
+            _currentLevelNumber++;
+            GetNode<Label>("UI/HUD/VBoxContainer/LevelLabel").Text = "Level: " + _currentLevelNumber + " ";
+            GenerateLevel();
         }
 
         public void _on_Level_GameOver()
         {
+            _gameDuration = CurrentGameTime;
+            IsGameOver = true;
             GD.Print("Level game over");
         }
 

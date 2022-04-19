@@ -147,8 +147,6 @@ namespace Game
 
                 AddChild(newRock);
 
-                GD.Print("Add !");
-
                 _slots[_freeSlots[index]]--;
 
                 if(_slots[_freeSlots[index]] <= 0)
@@ -159,12 +157,13 @@ namespace Game
                 float time = (float)GD.RandRange(FallingDelayMin, FallingDelayMax);
                 _timer.Start(time);
 
-                GD.Print("Rocks speed: ",newRock.Speed, " - next falling in ", time);
+                //GD.Print("Rocks speed: ",newRock.Speed, " - next falling in ", time);
             }
         }
 
         public void _on_Player_PortalReached()
         {
+            GD.Print("Emit finisihed");
             EmitSignal(nameof(Finished));
         }
 

@@ -237,9 +237,9 @@ namespace Game
             }
         }
 
-        public void _on_despawn_animation_finished(String anim)
+        public void _on_despawn_animation_finished(String name)
         {
-            if(anim == "despawn")
+            if(name == "despawn")
             {
                 EmitSignal(nameof(PortalReached));
             }
