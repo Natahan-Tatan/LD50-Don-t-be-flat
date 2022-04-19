@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Godot;
 using System;
 
@@ -137,27 +138,61 @@ namespace Game
         {
             if(_freeSlots.Count > 0 && Rock != null)
             {
-                //_freeSlots.Shuffle();//Crash en HTML5
-                //Alternative pour empêcher le crash
-                int index = _rand.Next(_freeSlots.Count);
+                int speed = Mathf.RoundToInt((float)GD.RandRange(RockSpeedMin, RockSpeedMax));
+                int countRocks = Mathf.RoundToInt((float)GD.RandRange(MinCountRock, MaxCountInRock));
+                int currentSlot = _freeSlots[Mathf.RoundToInt((float)GD.RandRange(0, _freeSlots.Count-1))];
 
-                Rock newRock = Rock.Instance<Rock>();
-                newRock.Speed = Mathf.RoundToInt((float)GD.RandRange(RockSpeedMin, RockSpeedMax));
-                newRock.Position = new Vector2(_freeSlots[index] * _blockSize + (_blockSize/2), _ceil.Position.y + (_blockSize * (_ceil.Height - 1)));
-
-                AddChild(newRock);
-
-                _slots[_freeSlots[index]]--;
-
-                if(_slots[_freeSlots[index]] <= 0)
+                Dictionary<int, int> countAppearInSlot = new Dictionary<int, int>();
+                
+                for(int i=0; i<countRocks;i++)
                 {
-                    _freeSlots.RemoveAt(index);
+                    if(i != 0)
+                    {
+                        int candidateSlot = currentSlot + (GD.Randi()%2 == 0 ? -1:1);
+
+                        if(_freeSlots.Contains(candidateSlot))
+                        { 
+                            currentSlot = candidateSlot;
+                        }
+                    }
+
+                    if(countAppearInSlot.ContainsKey(currentSlot))
+                    {
+                        countAppearInSlot[currentSlot]++;
+                    }
+                    else
+                    {
+                        countAppearInSlot.Add(currentSlot, 1);
+                    }
+
+                    Rock newRock = Rock.Instance<Rock>();
+                    newRock.Speed = speed;
+
+                    int offset = countAppearInSlot[currentSlot] - 1;
+
+                    newRock.Position = new Vector2(currentSlot * _blockSize + (_blockSize/2), _ceil.Position.y + (_blockSize * (_ceil.Height - 1 - offset)));
+
+                    AddChild(newRock);
+
+                    _slots[currentSlot]--;
+
+                    if(_slots[currentSlot] <= 0)
+                    {
+                        _freeSlots.Remove(currentSlot);
+
+                        if(_freeSlots.Count > 0)
+                        {
+                            currentSlot = _freeSlots[Mathf.RoundToInt((float)GD.RandRange(0, _freeSlots.Count-1))];
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
                 }
 
                 float time = (float)GD.RandRange(FallingDelayMin, FallingDelayMax);
                 _timer.Start(time);
-
-                //GD.Print("Rocks speed: ",newRock.Speed, " - next falling in ", time);
             }
         }
 

@@ -103,7 +103,7 @@ namespace Game
             {
                 EmitSignal("Flattened");
             }
-            else
+            else if(HasControl)
             {
                 if(IsOnFloor())
                 {
@@ -146,7 +146,9 @@ namespace Game
                 {
                     if(ray.IsColliding())
                     {
+                        
                         _lastTopCollider = ray.GetCollider() as Node2D;
+
                         isColliding = true;
 
                         Scale -= new Vector2(0, 0.1f);
@@ -190,6 +192,7 @@ namespace Game
         {
             _droplet.Scale = new Vector2(2,2);
             _droplet.Visible = false;
+            _restoreTimer.Stop();
             if(_lastTopCollider is Rock rock)
             {
                 Vector2 globaPos = GlobalPosition;

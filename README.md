@@ -20,8 +20,8 @@ You must escape the room before be flattened by falling rocks !
 - [x] Score system
 - [x] Game over screen
 - [x] Pause menu / system
-- [ ] Random levels (shuffle level stats depends to difficulty)
-- [ ] Static rocks that fall off when something is on it after certain time
+- [x] Random levels (shuffle level stats depends to difficulty)
+- [x] Group rocks
 - [x] End of level, move to the next level
 - [x] Player restore
 - [x] Player being flattened anim (avoid bugged fall/jump anim)
@@ -31,3 +31,4 @@ You must escape the room before be flattened by falling rocks !
 
 - [ ] Score board
 - [ ] Enhance animations !
+- [ ] Static rocks that fall off when something is on it after certain time
