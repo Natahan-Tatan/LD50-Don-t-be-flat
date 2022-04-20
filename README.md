@@ -8,11 +8,11 @@ My entry for Ludum Dare 50. I will submit it for Extra.
 
 You must escape the room before be flattened by falling rocks !
 
-## Tools
+## Tools / libs
 - Godot engine
 - Aseprite
 - RFXgen
-- Musescore
+- FontAwesome
 - Gitkraken
 
 ## TODO (can evolute)
@@ -26,6 +26,7 @@ You must escape the room before be flattened by falling rocks !
 - [x] Player restore
 - [x] Player being flattened anim (avoid bugged fall/jump anim)
 - [x] Background image
+- [x] Add sounds
 
 <u>If have time:</u>
 

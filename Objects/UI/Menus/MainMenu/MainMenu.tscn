@@ -80,17 +80,19 @@ tracks/0/keys = {
 "values": [ Vector2( 1, 1 ), Vector2( 1, 0.8 ), Vector2( 1, 1 ) ]
 }
 
-[sub_resource type="DynamicFont" id=5]
-size = 35
+[sub_resource type="DynamicFont" id=6]
+size = 32
 font_data = ExtResource( 2 )
 
-[sub_resource type="DynamicFont" id=6]
+[sub_resource type="DynamicFont" id=5]
 size = 35
 font_data = ExtResource( 2 )
 
 [node name="MainMenu" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = -1.0
+margin_right = -1.0
 theme = ExtResource( 3 )
 script = ExtResource( 4 )
 Game = "res://Game.tscn"
@@ -125,6 +127,26 @@ anims/fall = SubResource( 3 )
 anims/loop = SubResource( 4 )
 next/fall = "loop"
 next/loop = "loop"
+
+[node name="RulesLabel" type="RichTextLabel" parent="."]
+margin_left = 46.0
+margin_top = 718.0
+margin_right = 555.0
+margin_bottom = 977.0
+custom_fonts/normal_font = SubResource( 6 )
+bbcode_enabled = true
+bbcode_text = "[center][u]Rules:[/u]
+Reach portal on the top-right corner of the level !
+
+Space key to Jump
+Arrows or AD keys to move
+Echap to pause game[/center]"
+text = "Rules:
+Reach portal on the top-right corner of the level !
+
+Space key to Jump
+Arrows or AD keys to move
+Echap to pause game"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 margin_left = 150.0
@@ -178,11 +200,11 @@ By Natahan
 Powered by Godot Engine
 [img=300]res://Ressources/Godot_icon.png[/img]
 
-[u]Tools used:[/u]
+[u]Tools/libs used:[/u]
 Aseprite
 Rfxgen
-Musescore
 Gitkraken
+FontAwesome
 [/center]"
 text = "Ludum Dare 50 Extra Entry !
 By Natahan
@@ -192,11 +214,11 @@ Project on Github
 Powered by Godot Engine
 
 
-Tools used:
+Tools/libs used:
 Aseprite
 Rfxgen
-Musescore
 Gitkraken
+FontAwesome
 "
 
 [node name="CloseButton" type="Button" parent="AboutWindow"]
@@ -210,26 +232,6 @@ margin_right = 73.0
 margin_bottom = 415.0
 size_flags_horizontal = 4
 text = "Return"
-
-[node name="RulesLabel" type="RichTextLabel" parent="."]
-margin_left = 46.0
-margin_top = 712.0
-margin_right = 555.0
-margin_bottom = 1019.0
-custom_fonts/normal_font = SubResource( 6 )
-bbcode_enabled = true
-bbcode_text = "[center][u]Rules:[/u]
-Reach portal on the top-right corner of the level !
-
-Space key to Jump
-Arrows or AD keys to move
-Echap to pause game[/center]"
-text = "Rules:
-Reach portal on the top-right corner of the level !
-
-Space key to Jump
-Arrows or AD keys to move
-Echap to pause game"
 
 [connection signal="pressed" from="VBoxContainer/PlayButton" to="." method="_on_PlayButton_pressed"]
 [connection signal="pressed" from="VBoxContainer/AboutButton" to="." method="_on_AboutButton_pressed"]

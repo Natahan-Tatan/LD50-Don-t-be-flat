@@ -44,6 +44,14 @@ namespace Game
 
         private Node2D _droplet = null;
 
+        private bool _isNowInFloor = false;
+        private bool _isCurrentlyFlattening = false;
+
+        //Sounds 
+        private AudioStreamPlayer _jumpSound = null;
+        private AudioStreamPlayer _landSound = null;
+        
+
         public override void _Ready()
         {
             GD.Randomize();
@@ -66,21 +74,37 @@ namespace Game
             _rayDownLeft = GetNode<RayCast2D>("RayCastDownLeft");
             _rayDownRight = GetNode<RayCast2D>("RayCastDownRight");
             _rayDownLeft.CastTo = _rayDownRight.CastTo = new Vector2(0, _shape.Extents.y + 2);
+
+            _jumpSound = GetNode<AudioStreamPlayer>("JumpSound");
+            _landSound = GetNode<AudioStreamPlayer>("LandSound");
         }
         public override void _PhysicsProcess(float delta)
         {
             base._PhysicsProcess(delta);
 
-            if(_canJump && Input.IsActionJustPressed("jump"))
+            if(IsOnFloor() && Input.IsActionJustPressed("jump"))
             {
                 _canJump = false;
                 _currentVerticalForce = -Mathf.RoundToInt(Jump);
+                _jumpSound.Play();
+
+                _isNowInFloor = false;
             }
             else
             {
                 if(IsOnCeiling() && _currentVerticalForce < 0)
                 {
+                    if(!_isCurrentlyFlattening)
+                    {
+                        _landSound.Play();
+                    }
+                    
                     _currentVerticalForce = 0;
+                }
+
+                if(!IsOnFloor())
+                {
+                    _isNowInFloor = false;
                 }
                 
                 _currentVerticalForce += Mathf.RoundToInt(Gravity);
@@ -101,12 +125,19 @@ namespace Game
 
             if(Scale.y <= 0.05f)
             {
+                GetNode<AudioStreamPlayer>("SquishSound").Play();
                 EmitSignal("Flattened");
             }
             else if(HasControl)
             {
                 if(IsOnFloor())
                 {
+                    if(!_isNowInFloor && !_isCurrentlyFlattening)
+                    {
+                        _landSound.Play();
+                    }
+
+                    _isNowInFloor = true;
                     _currentVerticalForce = 0;
                     _canJump = true;    
 
@@ -141,6 +172,7 @@ namespace Game
             if((_rayDownLeft.IsColliding() || _rayDownRight.IsColliding()) && Scale.y > 0.05f)
             {
                 bool isColliding = false;
+                _isCurrentlyFlattening = false;
 
                 foreach(RayCast2D ray in _raycasts)
                 {
@@ -155,6 +187,8 @@ namespace Game
 
                         _droplet.Visible = true;
                         _droplet.Scale = new Vector2((1.0f/Scale.x) * 2, (1.0f/Scale.y) * 2);
+
+                        _isCurrentlyFlattening = true;
 
                         _isRestoring = false;
                         _restoreTimer.Start();

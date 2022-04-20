@@ -72,6 +72,7 @@ namespace Game
             bool currentInPause = GetNode<Control>("UI/PauseMenu").Visible;
 
             GetNode<Control>("UI/PauseMenu").Visible = !currentInPause;
+            
 
             GetTree().Paused = !currentInPause;
 
@@ -83,6 +84,8 @@ namespace Game
             {
                 _durationPause += OS.GetTicksMsec() - _timePause;
             }
+
+            GetNode<Control>("UI/TouchControls").Visible = !GetTree().Paused;
         }
 
         protected void GenerateLevel()
@@ -162,7 +165,7 @@ namespace Game
         {
             _gameDuration = CurrentGameTime;
             IsGameOver = true;
-            GD.Print("Level game over");
+            GetNode<Control>("UI/TouchControls").Visible = false;
         }
 
         public void _on_QuitButton_pressed()

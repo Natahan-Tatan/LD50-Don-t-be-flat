@@ -64,6 +64,8 @@ namespace Game
                         {
                             Position = new Vector2(Position.x, collider.Position.y - (_extends.y * 2));
                         }
+
+                        GetNode<AudioStreamPlayer2D>("LandSound").Play();
                         
                         this.AddToGroup("ground");
                         SetPhysicsProcess(false);
