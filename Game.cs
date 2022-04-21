@@ -30,6 +30,15 @@ namespace Game
             }
         }
 
+        protected int CurrentLevelNumber
+        {
+            get { return _currentLevelNumber;}
+            set{
+                _currentLevelNumber = value;
+                GetNode<Label>("UI/HUD/VBoxContainer/LevelLabel").Text = "Level: " + _currentLevelNumber + " ";
+            }
+        }
+
         public bool IsGameOver {get; set;} = false;
         private ulong _timeStart = 0;
         private ulong _timePause = 0;
@@ -116,7 +125,7 @@ namespace Game
                 _currentLevel = newLevel;
 
                 
-                //TODO: use difficuty to configure level
+                //Use difficuty to configure level
 
                 _currentLevel.Width = (int)Math.Round(GD.RandRange(5, 8));
                 _currentLevel.Height =(int)Math.Round(GD.RandRange(5, 10));
@@ -127,17 +136,18 @@ namespace Game
                 _currentLevel.ExitHeight = (int)GD.RandRange(1,3);
                 _currentLevel.ExitHeight += 5 - Mathf.Min(Difficulty, 5);
 
-                _currentLevel.FallingDelayMin = (float)GD.RandRange(0.3, 4);
-                _currentLevel.FallingDelayMax = (float)GD.RandRange(_currentLevel.FallingDelayMin + 0.1, 5);
+                _currentLevel.FallingDelayMin = (float)GD.RandRange(0.3, 2);
+                _currentLevel.FallingDelayMax = (float)GD.RandRange(_currentLevel.FallingDelayMin + 0.1, 4);
 
-                _currentLevel.RockSpeedMin = (int)Math.Round(GD.RandRange(50, 100));
+                _currentLevel.RockSpeedMin = (int)Math.Round(GD.RandRange(100, 250));
                 _currentLevel.RockSpeedMax = (int)Math.Round(GD.RandRange(_currentLevel.RockSpeedMin, 500 + (Mathf.Min(Difficulty, 20)) * 10));
 
-                _currentLevel.MinCountRock = (int)Math.Round(GD.RandRange(1, Mathf.CeilToInt(_currentLevel.Width/5)));
-                _currentLevel.MaxCountInRock = (int)Math.Round(GD.RandRange(_currentLevel.MinCountRock,  Mathf.CeilToInt(_currentLevel.Width / 2)));
+                _currentLevel.MinCountRock = (int)Math.Round(GD.RandRange(1, Mathf.CeilToInt(_currentLevel.Width/4)));
+                _currentLevel.MaxCountRock = (int)Math.Round(GD.RandRange(_currentLevel.MinCountRock,  Mathf.CeilToInt(_currentLevel.Width / 2)));
 
-                _currentLevel.MinCountRock += Mathf.Min(Mathf.FloorToInt(Difficulty/10), 4);
-                _currentLevel.MaxCountInRock += Mathf.Min(Mathf.FloorToInt(Difficulty/10), 4);
+                int difficultyAdd = Mathf.Min(Mathf.FloorToInt(Difficulty/10), 4);
+                _currentLevel.MinCountRock += difficultyAdd;
+                _currentLevel.MaxCountRock += difficultyAdd;
 
                 // //TEST
 
@@ -153,11 +163,11 @@ namespace Game
 
         public void _on_Level_Finished()
         {
-            _currentLevelNumber++;
-            Difficulty = Mathf.Max(_currentLevelNumber/2,1);
+            CurrentLevelNumber++;
+            Difficulty = Mathf.Max(CurrentLevelNumber/2,1);
 
             GD.Print("Difficulty: ", Difficulty);
-            GetNode<Label>("UI/HUD/VBoxContainer/LevelLabel").Text = "Level: " + _currentLevelNumber + " ";
+            
             GenerateLevel();
         }
 
@@ -179,7 +189,7 @@ namespace Game
             _timePause = _durationPause = _gameDuration = 0;
             IsGameOver = false;
             _timeStart = OS.GetTicksMsec();
-            _currentLevelNumber = Difficulty = 1;
+            CurrentLevelNumber = Difficulty = 1;
 
             GetNode<Control>("UI/TouchControls").Visible = true;
 
