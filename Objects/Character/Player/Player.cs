@@ -114,10 +114,12 @@ namespace Game
 
             if(Input.IsActionPressed("ui_right"))
             {
+                _sprite.FlipH = false;
                 vel += new Vector2(Speed, 0);
             }
             else if(Input.IsActionPressed("ui_left"))
             {
+                _sprite.FlipH = true;
                 vel += new Vector2(-Speed, 0);
             }
             
