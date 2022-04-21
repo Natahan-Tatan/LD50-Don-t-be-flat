@@ -176,6 +176,7 @@ scale = Vector2( 0.253906, 0.240234 )
 normal = ExtResource( 11 )
 shape = SubResource( 7 )
 shape_visible = false
+passby_press = true
 action = "Pause"
 visibility_mode = 1
 
@@ -185,6 +186,7 @@ scale = Vector2( 0.253906, 0.240234 )
 normal = ExtResource( 13 )
 shape = SubResource( 7 )
 shape_visible = false
+passby_press = true
 action = "ui_left"
 visibility_mode = 1
 
@@ -194,6 +196,7 @@ scale = Vector2( 0.253906, 0.240234 )
 normal = ExtResource( 14 )
 shape = SubResource( 7 )
 shape_visible = false
+passby_press = true
 action = "ui_right"
 visibility_mode = 1
 
@@ -203,6 +206,7 @@ scale = Vector2( 0.253906, 0.240234 )
 normal = ExtResource( 12 )
 shape = SubResource( 7 )
 shape_visible = false
+passby_press = true
 action = "jump"
 visibility_mode = 1
 

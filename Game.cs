@@ -179,6 +179,9 @@ namespace Game
             _timePause = _durationPause = _gameDuration = 0;
             IsGameOver = false;
             _timeStart = OS.GetTicksMsec();
+            _currentLevelNumber = Difficulty = 1;
+
+            GetNode<Control>("UI/TouchControls").Visible = true;
 
             GenerateLevel();
         }

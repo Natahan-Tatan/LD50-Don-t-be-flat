@@ -107,9 +107,9 @@ stretch_mode = 2
 [node name="Title" type="RichTextLabel" parent="."]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -205.0
+margin_left = 95.0
 margin_top = -270.0
-margin_right = 235.0
+margin_right = 535.0
 margin_bottom = -106.0
 rect_rotation = -10.4
 rect_pivot_offset = Vector2( 224.023, 163.701 )
