@@ -14,7 +14,7 @@ config/name="(LD50) Dont be flat"
 run/main_scene="res://Objects/UI/Menus/MainMenu/MainMenu.tscn"
 config/icon="res://Ressources/icon_game.png"
 config/windows_native_icon="res://Ressources/icon_game.ico"
-config/version="1.0.2"
+config/version="1.0.3"
 
 [audio]
 

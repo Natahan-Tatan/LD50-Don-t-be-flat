@@ -117,7 +117,7 @@ namespace Game
         [Export(PropertyHint.Range,"1,30,0.9")]
         public int MinCountRock {get; set;} = 1;
         [Export(PropertyHint.Range,"1,50,0.9")]
-        public int MaxCountInRock {get; set;} = 3;
+        public int MaxCountRock {get; set;} = 3;
 
         public override void _Ready()
         {
@@ -139,7 +139,7 @@ namespace Game
             if(_freeSlots.Count > 0 && Rock != null)
             {
                 int speed = Mathf.RoundToInt((float)GD.RandRange(RockSpeedMin, RockSpeedMax));
-                int countRocks = Mathf.RoundToInt((float)GD.RandRange(MinCountRock, MaxCountInRock));
+                int countRocks = Mathf.RoundToInt((float)GD.RandRange(MinCountRock, MaxCountRock));
                 int currentSlot = _freeSlots[Mathf.RoundToInt((float)GD.RandRange(0, _freeSlots.Count-1))];
 
                 Dictionary<int, int> countAppearInSlot = new Dictionary<int, int>();
