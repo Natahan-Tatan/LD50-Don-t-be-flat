@@ -15,7 +15,7 @@ You must escape the room before be flattened by falling rocks !
 - FontAwesome
 - Gitkraken
 
-## TODO (can evolute)
+## Features
 - [x] Main menu
 - [x] Score system
 - [x] Game over screen
@@ -27,9 +27,3 @@ You must escape the room before be flattened by falling rocks !
 - [x] Player being flattened anim (avoid bugged fall/jump anim)
 - [x] Background image
 - [x] Add sounds
-
-<u>If have time:</u>
-
-- [ ] Score board
-- [ ] Enhance animations !
-- [ ] Static rocks that fall off when something is on it after certain time
