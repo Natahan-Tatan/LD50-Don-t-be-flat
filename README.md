@@ -1,6 +1,6 @@
 # LD50-Don-t-be-flat
 
-**Work in progress**
+**Brance sealed. This is the version I submitted to the game jam.**
 
 My entry for Ludum Dare 50. I will submit it for Extra.
 
