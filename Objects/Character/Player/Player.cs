@@ -29,6 +29,9 @@ namespace Game
         public int Speed {get; set;} = 100;
         [Export(PropertyHint.Range,"0,5000,1")]
         public int Jump {get; set;} = 100;
+        [Export(PropertyHint.Range,"100,5000,1")]
+        public int WallJump {get; set;} = 100;
+
 
         private int _currentVerticalForce = 0;
         private bool _canJump = true;
@@ -41,6 +44,7 @@ namespace Game
         private Node2D _lastTopCollider = null;
         private Timer _restoreTimer = null;
         private bool _isRestoring = false;
+        private KinematicCollision2D _lastCollision = null;
 
         private Node2D _droplet = null;
 
@@ -51,6 +55,8 @@ namespace Game
         private AudioStreamPlayer _jumpSound = null;
         private AudioStreamPlayer _landSound = null;
         
+        private int _wallJumpDirection = 0;
+        private Timer _wallJumpEffectTimer = null;
 
         public override void _Ready()
         {
@@ -77,17 +83,39 @@ namespace Game
 
             _jumpSound = GetNode<AudioStreamPlayer>("JumpSound");
             _landSound = GetNode<AudioStreamPlayer>("LandSound");
+
+            _wallJumpEffectTimer = GetNode<Timer>("WallJumpEffectTimer");
         }
         public override void _PhysicsProcess(float delta)
         {
             base._PhysicsProcess(delta);
 
-            if(IsOnFloor() && Input.IsActionJustPressed("jump"))
+            if((IsOnWall() || IsOnFloor()) && Input.IsActionJustPressed("jump"))
             {
-                _canJump = false;
-                _currentVerticalForce = -Mathf.RoundToInt(Jump);
+                if(_canJump)
+                {
+                    _currentVerticalForce = -Mathf.RoundToInt(Jump);
+                }
                 _jumpSound.Play();
+                
 
+                if(IsOnWall() && !IsOnFloor() && _wallJumpDirection == 0)
+                {
+                    if(Input.IsActionPressed("ui_right"))
+                    {
+                        _wallJumpDirection = -1;
+                    }
+                    else if(Input.IsActionPressed("ui_left"))
+                    {
+                        _wallJumpDirection = 1;
+                    }
+                    
+                    //If jump on the wall, we must have vertical vel anyway
+                    _currentVerticalForce = -Mathf.RoundToInt(Jump);
+                    _wallJumpEffectTimer.Start();
+                }
+
+                _canJump = false;
                 _isNowInFloor = false;
             }
             else
@@ -110,17 +138,21 @@ namespace Game
                 _currentVerticalForce += Mathf.RoundToInt(Gravity);
             }
             
-            var vel = new Vector2(0, _currentVerticalForce);
+            var vel = new Vector2(WallJump * _wallJumpDirection, _currentVerticalForce);
 
-            if(Input.IsActionPressed("ui_right"))
+            //Can move only if no wall jump effect
+            if(_wallJumpDirection == 0)
             {
-                _sprite.FlipH = false;
-                vel += new Vector2(Speed, 0);
-            }
-            else if(Input.IsActionPressed("ui_left"))
-            {
-                _sprite.FlipH = true;
-                vel += new Vector2(-Speed, 0);
+                if(Input.IsActionPressed("ui_right"))
+                {
+                    _sprite.FlipH = false;
+                    vel += new Vector2(Speed, 0);
+                }
+                else if(Input.IsActionPressed("ui_left"))
+                {
+                    _sprite.FlipH = true;
+                    vel += new Vector2(-Speed, 0);
+                }
             }
             
             MoveAndSlide(vel * Scale.y, Vector2.Up);
@@ -282,6 +314,11 @@ namespace Game
             {
                 EmitSignal(nameof(PortalReached));
             }
+        }
+
+        public void _on_WallJumpEffectTimer_timeout()
+        {
+            _wallJumpDirection = 0;
         }
 
     }

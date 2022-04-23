@@ -45,6 +45,8 @@ MainMenu = "res://Objects/UI/Menus/MainMenu/MainMenu.tscn"
 LevelScene = ExtResource( 1 )
 
 [node name="Level" parent="." instance=ExtResource( 1 )]
+Height = 13
+Width = 8
 FallingDelayMin = 0.2
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
@@ -211,6 +213,7 @@ action = "jump"
 visibility_mode = 1
 
 [node name="GameOverMenu" type="Control" parent="UI"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 4 )

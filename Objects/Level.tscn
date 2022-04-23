@@ -73,7 +73,6 @@ Width = 5
 Rock = ExtResource( 3 )
 
 [node name="FallTimer" type="Timer" parent="."]
-wait_time = 2.0
 autostart = true
 
 [node name="Ceil" parent="." instance=ExtResource( 6 )]

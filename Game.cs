@@ -11,6 +11,8 @@ namespace Game
         public int Difficulty {get; set;} = 1;
         [Export]
         public PackedScene LevelScene {get; set;} = null;
+        [Export]
+        public bool DebugNoGenerate = false;
 
         private Level _currentLevel = null;
 
@@ -56,7 +58,10 @@ namespace Game
             _currentLevel = GetNodeOrNull<Level>("Level"); 
 
             //...but remove it to make a new
-           GenerateLevel();
+            if(!DebugNoGenerate || !OS.IsDebugBuild())
+            {
+                GenerateLevel();
+            }
 
            _timeStart = OS.GetTicksMsec();
         }

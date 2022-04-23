@@ -235,10 +235,6 @@ region = Rect2( 384, 0, 64, 64 )
 atlas = ExtResource( 2 )
 region = Rect2( 448, 0, 64, 64 )
 
-[sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 2 )
-region = Rect2( 192, 0, 64, 64 )
-
 [sub_resource type="AtlasTexture" id=11]
 atlas = ExtResource( 2 )
 region = Rect2( 512, 0, 64, 64 )
@@ -259,6 +255,10 @@ region = Rect2( 256, 0, 64, 64 )
 atlas = ExtResource( 2 )
 region = Rect2( 320, 0, 64, 64 )
 
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 2 )
+region = Rect2( 192, 0, 64, 64 )
+
 [sub_resource type="SpriteFrames" id=6]
 animations = [ {
 "frames": [ SubResource( 1 ) ],
@@ -270,11 +270,6 @@ animations = [ {
 "loop": true,
 "name": "flat",
 "speed": 1.0
-}, {
-"frames": [ SubResource( 2 ) ],
-"loop": true,
-"name": "fall",
-"speed": 5.0
 }, {
 "frames": [ SubResource( 11 ), SubResource( 12 ) ],
 "loop": true,
@@ -290,6 +285,11 @@ animations = [ {
 "loop": true,
 "name": "walk",
 "speed": 4.0
+}, {
+"frames": [ SubResource( 2 ) ],
+"loop": true,
+"name": "fall",
+"speed": 5.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=7]
@@ -339,6 +339,7 @@ __meta__ = {
 Gravity = 80
 Speed = 400
 Jump = 1500
+WallJump = 500
 
 [node name="SpawnAnim" type="Node2D" parent="."]
 
@@ -387,7 +388,18 @@ volume_db = -5.0
 pitch_scale = 0.8
 
 [node name="RestoreTimer" type="Timer" parent="."]
+process_mode = 0
 wait_time = 3.0
+__meta__ = {
+"_editor_description_": "Time before squish restore begin."
+}
+
+[node name="WallJumpEffectTimer" type="Timer" parent="."]
+process_mode = 0
+wait_time = 0.5
+__meta__ = {
+"_editor_description_": "Wall jump effect duration."
+}
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 2, 2 )
@@ -461,3 +473,4 @@ pitch_scale = 0.84
 [connection signal="Flattened" from="." to="." method="_on_Player_Flattened"]
 [connection signal="item_rect_changed" from="." to="Droplet" method="_on_Player_item_rect_changed"]
 [connection signal="timeout" from="RestoreTimer" to="." method="_on_RestoreTimer_timeout"]
+[connection signal="timeout" from="WallJumpEffectTimer" to="." method="_on_WallJumpEffectTimer_timeout"]
