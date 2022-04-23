@@ -2,7 +2,7 @@
 
 **Brance sealed. This is the version I submitted to the game jam.**
 
-My entry for Ludum Dare 50. I will submit it for Extra.
+You can play this submitted version here: https://ld50.natahan.net/
 
 ## Principle
 
