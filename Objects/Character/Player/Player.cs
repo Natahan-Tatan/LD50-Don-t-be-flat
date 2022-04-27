@@ -186,7 +186,11 @@ namespace Game
                 }
                 else
                 {
-                    if(vel.y > 0)
+                    if(IsOnWall() && (Input.IsActionPressed("ui_right") || Input.IsActionPressed("ui_left")))
+                    {
+                        PlayAnim("wallJump");
+                    }
+                    else if(vel.y > 0)
                     {
                         PlayAnim("fall");
                     }
