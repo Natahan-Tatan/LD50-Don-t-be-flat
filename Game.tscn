@@ -46,7 +46,7 @@ LevelScene = ExtResource( 1 )
 
 [node name="Level" parent="." instance=ExtResource( 1 )]
 Height = 13
-Width = 8
+Width = 1
 FallingDelayMin = 0.2
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]

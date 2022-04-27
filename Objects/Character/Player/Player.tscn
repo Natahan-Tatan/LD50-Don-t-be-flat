@@ -239,14 +239,6 @@ region = Rect2( 448, 0, 64, 64 )
 atlas = ExtResource( 2 )
 region = Rect2( 192, 0, 64, 64 )
 
-[sub_resource type="AtlasTexture" id=11]
-atlas = ExtResource( 2 )
-region = Rect2( 512, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=12]
-atlas = ExtResource( 2 )
-region = Rect2( 576, 0, 64, 64 )
-
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 2 )
 region = Rect2( 128, 0, 64, 64 )
@@ -262,6 +254,14 @@ region = Rect2( 320, 0, 64, 64 )
 [sub_resource type="AtlasTexture" id=24]
 atlas = ExtResource( 2 )
 region = Rect2( 640, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 2 )
+region = Rect2( 512, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 2 )
+region = Rect2( 576, 0, 64, 64 )
 
 [sub_resource type="SpriteFrames" id=6]
 animations = [ {
@@ -280,11 +280,6 @@ animations = [ {
 "name": "fall",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 11 ), SubResource( 12 ) ],
-"loop": true,
-"name": "flattening",
-"speed": 6.0
-}, {
 "frames": [ SubResource( 3 ) ],
 "loop": true,
 "name": "jump",
@@ -299,6 +294,11 @@ animations = [ {
 "loop": false,
 "name": "wallJump",
 "speed": 5.0
+}, {
+"frames": [ SubResource( 11 ), SubResource( 12 ) ],
+"loop": true,
+"name": "flattening",
+"speed": 6.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=7]

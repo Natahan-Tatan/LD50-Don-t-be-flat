@@ -188,6 +188,8 @@ namespace Game
                 {
                     if(IsOnWall() && (Input.IsActionPressed("ui_right") || Input.IsActionPressed("ui_left")))
                     {
+                        _wallJumpDirection = 0;
+                        _wallJumpEffectTimer.Stop();
                         PlayAnim("wallJump");
                     }
                     else if(vel.y > 0)
